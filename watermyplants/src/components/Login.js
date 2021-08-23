@@ -1,5 +1,7 @@
 import React from "react";
 import useForm from "../hooks/useForm";
+import { connect } from "react-redux";
+import { login } from "../actions";
 
 const initialLogin = {
   username: "",
@@ -7,11 +9,13 @@ const initialLogin = {
 };
 
 function Login(props) {
+  const { login } = props;
   const [loginData, handleChange] = useForm(initialLogin);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //   axios post
+    login(loginData)
     // set token to localstorage
     //push to plantlist
   };
@@ -43,4 +47,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default connect(null, { login })(Login);

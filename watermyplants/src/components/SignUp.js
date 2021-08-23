@@ -1,6 +1,7 @@
 import React from "react";
-import { useState } from "react";
 import useForm from "../hooks/useForm";
+import { connect } from "react-redux";
+import { signUp } from "../actions";
 
 const initialSignUp = {
   username: "",
@@ -9,11 +10,13 @@ const initialSignUp = {
 };
 
 function SignUp(props) {
+  const { signUp } = props
   const [signUpData, handleChange] = useForm(initialSignUp);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // axios post Here
+    signUp(signUpData)
     //set token to localstorage
     //push to my plant list
   };
@@ -54,4 +57,4 @@ function SignUp(props) {
   );
 }
 
-export default SignUp;
+export default connect(null, { signUp })(SignUp);

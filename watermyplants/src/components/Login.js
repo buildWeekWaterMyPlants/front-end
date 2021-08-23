@@ -29,7 +29,7 @@ function Login(props) {
         <label>
           Password:<input type="password"></input>
         </label>
-        <button>Login</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );

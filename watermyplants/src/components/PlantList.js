@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Plant from './Plant'
 import { Link, Route } from "react-router-dom";
 import AddPlant from "./AddPlant";
+import schema from './formSchema'
+import * as yup from 'yup';
 
 const dummyData = [
   {
@@ -32,11 +34,31 @@ const initalFormValues= {
   h2oFrequency: ''
 }
 
+const initalFormErrors = {
+  id: '',
+  nickname: '',
+  species: '',
+  h2oFrequency: ''
+}
+
+const initalDisabled = true;
+
 function PlantList(props) {
   const [plants, setPlants] = useState(dummyData);
   const [formValues, setFormValues] = useState(initalFormValues);
+  const [formErrors, setFormErrors] = useState(initalFormErrors);
+  const [disabled, setDisabled] = useState(initalDisabled);
+
+
+  const validate = (name, value) => {
+    yup.reach(schema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: '' }))
+      .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0]}))
+  }
 
   const changeForm=(name,value)=>{
+    validate(name, value)
     setFormValues({...formValues, [name]:value})
   }
 
@@ -71,12 +93,16 @@ function PlantList(props) {
     deleteFunction(id);
   }
 
+  useEffect(() => {
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues])
+
   return (
   <div className="flex w-90 justify-center flex-col text-center items-center mt-10"> 
       <h2 className="text-5xl font-bold m-4"> Your Garden </h2>
       <Link to="/add-plant" className="border p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Add A Plant</Link>
       <Route  path="/add-plant">
-        <AddPlant submit={submit} changeForm={changeForm} formValues={formValues} />
+        <AddPlant formErrors={formErrors} disabled={disabled} submit={submit} changeForm={changeForm} formValues={formValues} />
       </Route>
       <div className="w-11/12 mt-6 h-80 border-8 flex-wrap flex justify-center items-start">
        {plants.map((plant, index)=>{

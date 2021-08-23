@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import { Route, Switch } from "react-router-dom";
 import AddPlant from "./components/AddPlant";
 import Login from "./components/Login";

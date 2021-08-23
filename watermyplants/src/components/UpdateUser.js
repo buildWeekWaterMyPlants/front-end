@@ -13,7 +13,7 @@ function UpdateUser(props) {
   };
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           New Phone Number:
           <input

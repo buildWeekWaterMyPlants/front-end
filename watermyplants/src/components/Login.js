@@ -41,7 +41,7 @@ function Login(props) {
             value={loginData.password}
           ></input>
         </label>
-        <button>Login</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );

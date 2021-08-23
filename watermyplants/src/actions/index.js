@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosWithAuth from "../services/axiosWithAuth";
 
 export const CHECK_AUTHORIZATION = "CHECK_AUTHORIZATION";
 export const checkAuth = (authenticated) => ({

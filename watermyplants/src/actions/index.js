@@ -32,3 +32,41 @@ export const signUp = (userInfo) => (dispatch) => {
             dispatch({ type: FAILED_REQUEST, payload: err })
         })
 }
+
+export const UPDATE_PLANT = "UPDATE_PLANT";
+
+export const updatePlant = (plantData) => (dispatch) => {
+    dispatch({ type: START_REQUEST })
+    axiosWithAuth().put("", plantData)
+        .then(res => {
+            dispatch({ type: UPDATE_PLANT, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: FAILED_REQUEST, payload: err })
+        })
+}
+export const UPDATE_USER = "UPDATE_USER";
+
+export const updateUser = (userData) => (dispatch) => {
+    dispatch({ type: START_REQUEST })
+    axiosWithAuth().put("", userData)
+        .then(res => {
+            dispatch({ type: UPDATE_USER, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: FAILED_REQUEST, payload: err })
+        })
+}
+
+export const DELETE_PLANT = "DELETE_PLANT";
+
+export const deletePlant = (plantData) => (dispatch) => {
+    dispatch({ type: START_REQUEST })
+    axiosWithAuth().delete("", plantData)
+        .then(res => {
+            dispatch({ type: DELETE_PLANT, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: FAILED_REQUEST, payload: err })
+        })
+}

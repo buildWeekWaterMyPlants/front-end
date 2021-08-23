@@ -2,7 +2,7 @@ import React from "react";
 
 function AddPlant(props) {
 
-  const {formValues, changeForm, submit} = props;
+  const {formValues, changeForm, submit, disabled, formErrors} = props;
 
   const onChange=(evt)=>{
     const {name, value} = evt.target;
@@ -37,7 +37,10 @@ function AddPlant(props) {
                 <option value="5">Every five days</option>
                 <option value="7">Once a week</option>
               </select>
-              <button className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Submit</button>
+              <button disabled={disabled} className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Submit</button>
+              <div className="text-red-500">{formErrors.nickname}</div>
+              <div className="text-red-500">{formErrors.species}</div>
+              <div className="text-red-500">{formErrors.h2oFrequency}</div>
             </label>
           </label>
         </form>

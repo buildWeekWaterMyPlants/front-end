@@ -14,13 +14,10 @@ function App(props) {
     <div>
       <header>
         <nav>
-          <Link to="/login">Login</Link>
-          {authenticated && <>
+          {authenticated ? <>
             <Link>Logout</Link>
-            <Link to="/plants">Plants</Link>
-            <Link to="/plants/add">Add Plant</Link>
-            <Link to="/plants/update">Update Plant</Link>
-          </>}
+            <Link to="/user/update">Update User</Link>
+          </> : <Link to="/login">Login</Link>}
         </nav>
       </header>
 

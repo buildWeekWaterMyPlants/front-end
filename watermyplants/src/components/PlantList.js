@@ -5,22 +5,22 @@ import AddPlant from "./AddPlant";
 
 const dummyData = [
   {
-    id: 1,
+    id: '1',
     nickname: 'Dan',
     species: 'Sunflower',
-    h2oFrequency: '4'
+    h2oFrequency: '7'
   
   },
-  { id: 2,
+  { id: '2',
     nickname: 'Steve',
     species: 'Daisy',
-    h2oFrequency: '4'
+    h2oFrequency: '1'
   },
   {
-    id: 3,
+    id: '3',
     nickname: 'Roger',
     species: 'Rose',
-    h2oFrequency: '4'
+    h2oFrequency: '3'
   }
 
 ]
@@ -41,8 +41,9 @@ function PlantList(props) {
   }
 
   const submit = () =>{
+    let randomNumber = Math.random();
     const newPlant={
-      id: '',
+      id: `${randomNumber}`,
       nickname: formValues.nickname,
       species: formValues.species,
       h2oFrequency: formValues.h2oFrequency
@@ -50,18 +51,42 @@ function PlantList(props) {
     //API goes here
     setPlants([...plants, newPlant])
     console.log(newPlant)
+    setFormValues(initalFormValues)
+  }
+
+  const deleteFunction = (id) =>{
+    console.log('It works!')
+    let newArr = plants.filter(item=>{
+      if(item.id !== id){
+        return item;
+      }
+    })
+    setPlants(newArr)
+  }
+
+  const editFunction = (id, nick, spec, h2o) =>{
+    console.log("nicknaem", nick)
+    setFormValues({nickname: nick, species: spec, h2oFrequency: h2o, id: id })
+    
+    // setFormValues({...formValues, h2oFrequency: h2o })
+    // setFormValues({...formValues, nickname: nickname})
+    // setFormValues({...formValues, species: species})
+    // setFormValues({...formValues, h2oFrequency: h2oFrequency})
+    // setFormValues({...formValues, id: id})
+    // console.log("test",formValues)
+    deleteFunction(id);
   }
 
   return (
-  <div className="flex w-90 border-8 justify-center flex-col text-center items-center"> 
-      <h2 className="text-4xl"> Your Garden </h2>
-      <Link to="/add-plant" className="border p-2 text-md bg-green-200">Add A Plant</Link>
+  <div className="flex w-90 justify-center flex-col text-center items-center mt-10"> 
+      <h2 className="text-5xl font-bold m-4"> Your Garden </h2>
+      <Link to="/add-plant" className="border p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Add A Plant</Link>
       <Route  path="/add-plant">
         <AddPlant submit={submit} changeForm={changeForm} formValues={formValues} />
       </Route>
-      <div className="w-full mt-6 h-80 border flex-wrap flex justify-center items-start">
-       {plants.map(plant=>{
-        return <Plant id={plant.id} nickname={plant.nickname} species={plant.species} h2oFrequency={plant.h2oFrequency} />
+      <div className="w-11/12 mt-6 h-80 border-8 flex-wrap flex justify-center items-start">
+       {plants.map((plant, index)=>{
+        return <Plant id={plant.id} editFunction={editFunction} deleteFunction={deleteFunction} nickname={plant.nickname} species={plant.species} h2oFrequency={plant.h2oFrequency} />
         })}
       </div>
   </div>

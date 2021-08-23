@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "../hooks/useForm";
+import useForm from "../hooks/useForm";
 
 const initialLogin = {
   username: "",
@@ -20,10 +20,22 @@ function Login(props) {
     <div>
       <form>
         <label>
-          Username:<input type="text"></input>
+          Username:
+          <input
+            onChange={handleChange}
+            type="text"
+            name="username"
+            value={loginData.username}
+          ></input>
         </label>
         <label>
-          Password:<input type="password"></input>
+          Password:
+          <input
+            onChange={handleChange}
+            type="password"
+            name="password"
+            value={loginData.password}
+          ></input>
         </label>
         <button>Login</button>
       </form>

@@ -10,23 +10,16 @@ function App() {
   return (
     <div>
       <header></header>
-      <Switch>
-        <Route>
-          <Login />
-        </Route>
-        <Route>
-          <SignUp />
-        </Route>
-        <Route>
-          <PlantList />
-        </Route>
-        <Route>
-          <AddPlant />
-        </Route>
-        <Route>
-          <UpdateUser />
-        </Route>
-      </Switch>
+
+      <Login />
+
+      <SignUp />
+
+      <PlantList />
+
+      <AddPlant />
+
+      <UpdateUser />
     </div>
   );
 }

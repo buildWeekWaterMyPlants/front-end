@@ -6,7 +6,6 @@ import SignUp from "./components/SignUp";
 import PlantList from "./components/PlantList";
 import UpdateUser from "./components/UpdateUser";
 import { connect } from "react-redux";
-import { checkAuth } from "./actions";
 
 function App(props) {
   const { authenticated } = props;

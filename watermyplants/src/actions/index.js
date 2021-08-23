@@ -10,9 +10,9 @@ export const START_REQUEST = "START_REQUEST";
 export const FINISH_AUTHENTICATION = "FINISH_AUTHENTICATION";
 export const FAILED_REQUEST = "FAILED_REQUEST";
 
-export const login = () => (dispatch) => {
+export const login = (userInfo) => (dispatch) => {
     dispatch({ type: START_REQUEST })
-    axios.post("") //insert url here
+    axios.post("", userInfo) //insert url here
         .then(res => {
             dispatch({ type: FINISH_AUTHENTICATION, payload: res.data }) // may need to adjust this later
         })
@@ -21,9 +21,9 @@ export const login = () => (dispatch) => {
         })
 }
 
-export const signUp = () => (dispatch) => {
+export const signUp = (userInfo) => (dispatch) => {
     dispatch({ type: START_REQUEST })
-    axios.post("") //insert url here
+    axios.post("", userInfo) //insert url here
         .then(res => {
             dispatch({ type: FINISH_AUTHENTICATION, payload: res.data }) // may need to adjust this later
         })

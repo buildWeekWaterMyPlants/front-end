@@ -68,12 +68,6 @@ function PlantList(props) {
     console.log("nicknaem", nick)
     setFormValues({nickname: nick, species: spec, h2oFrequency: h2o, id: id })
     
-    // setFormValues({...formValues, h2oFrequency: h2o })
-    // setFormValues({...formValues, nickname: nickname})
-    // setFormValues({...formValues, species: species})
-    // setFormValues({...formValues, h2oFrequency: h2oFrequency})
-    // setFormValues({...formValues, id: id})
-    // console.log("test",formValues)
     deleteFunction(id);
   }
 

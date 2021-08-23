@@ -27,7 +27,7 @@ function App(props) {
 
       <PlantList />
 
-      <AddPlant />
+      {/* <AddPlant /> */}
 
       <UpdateUser />
     </div>

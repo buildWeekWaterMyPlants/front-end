@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import useForm from "../hooks/useForm";
 
 const initialSignUp = {
   username: "",
@@ -8,11 +9,7 @@ const initialSignUp = {
 };
 
 function SignUp(props) {
-  const [signUpData, setSignUpData] = useState(initialSignUp);
-
-  const handleChange = (e) => {
-    setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
-  };
+  const [signUpData, handleChange] = useForm(initialSignUp);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,24 +20,35 @@ function SignUp(props) {
   console.log(signUpData);
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           Username:
-          <input onChange={handleChange} type="text" name="username"></input>
+          <input 
+            onChange={handleChange} 
+            value={signUpData.username}
+            type="text" 
+            name="username"
+          />
         </label>
         <label>
           Phone Number:
-          <input onChange={handleChange} type="tel" name="phoneNumber"></input>
+          <input 
+            onChange={handleChange} 
+            value={signUpData.phoneNumber}
+            type="tel" 
+            name="phoneNumber"
+          />
         </label>
         <label>
           Password:
           <input
             onChange={handleChange}
+            value={signUpData.password}
             type="password"
             name="password"
-          ></input>
+          />
         </label>
-        <button>Sign Up</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );

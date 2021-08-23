@@ -1,7 +1,8 @@
-import { CHECK_AUTHORIZATION } from "../actions"
+import { CHECK_AUTHORIZATION, FINISH_AUTHENTICATION, START_REQUEST } from "../actions"
 
 const initialState = {
-    authenticated: false
+    authenticated: localStorage.getItem("token") || false,
+    makingRequest: false,
 }
 
 const reducer = (state = initialState, actions) => {
@@ -10,6 +11,17 @@ const reducer = (state = initialState, actions) => {
             return {
                 ...state,
                 authenticated: actions.payload
+            }
+        case START_REQUEST:
+            return {
+                ...state,
+                makingRequest: true,
+            }
+        case FINISH_AUTHENTICATION:
+            return {
+                ...state,
+                authenticated: true,
+                makingRequest: false
             }
         default:
             return state

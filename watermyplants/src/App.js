@@ -6,15 +6,10 @@ import SignUp from "./components/SignUp";
 import PlantList from "./components/PlantList";
 import UpdateUser from "./components/UpdateUser";
 import { connect } from "react-redux";
-import { useEffect } from "react";
 import { checkAuth } from "./actions";
 
 function App(props) {
   const { authenticated } = props;
-
-  useEffect(() => {
-    checkAuth(localStorage.getItem("token"))
-  }, [])
 
   return (
     <div>
@@ -47,4 +42,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.authenticated
 })
 
-export default connect(mapStateToProps, { checkAuth })(App);
+export default connect(mapStateToProps)(App);

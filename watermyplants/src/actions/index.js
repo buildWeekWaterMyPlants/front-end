@@ -6,17 +6,28 @@ export const checkAuth = (authenticated) => ({
     payload: authenticated
 })
 
-export const START_LOGIN = "START_LOGIN";
-export const FINISH_LOGIN = "FINISH_LOGIN";
-export const FAILED_LOGIN = "FAILED_LOGIN";
+export const START_REQUEST = "START_REQUEST";
+export const FINISH_AUTHENTICATION = "FINISH_AUTHENTICATION";
+export const FAILED_REQUEST = "FAILED_REQUEST";
 
 export const login = () => (dispatch) => {
-    dispatch({ type: START_LOGIN })
+    dispatch({ type: START_REQUEST })
     axios.post("") //insert url here
         .then(res => {
-            dispatch({ type: FINISH_LOGIN, payload: res.data }) // may need to adjust this later
+            dispatch({ type: FINISH_AUTHENTICATION, payload: res.data }) // may need to adjust this later
         })
         .catch(err => {
-            dispatch({ type: FAILED_LOGIN, payload: err })
+            dispatch({ type: FAILED_REQUEST, payload: err })
+        })
+}
+
+export const signUp = () => (dispatch) => {
+    dispatch({ type: START_REQUEST })
+    axios.post("") //insert url here
+        .then(res => {
+            dispatch({ type: FINISH_AUTHENTICATION, payload: res.data }) // may need to adjust this later
+        })
+        .catch(err => {
+            dispatch({ type: FAILED_REQUEST, payload: err })
         })
 }

@@ -17,7 +17,7 @@ function App() {
 
       <PlantList />
 
-      <AddPlant />
+      {/* <AddPlant /> */}
 
       <UpdateUser />
     </div>

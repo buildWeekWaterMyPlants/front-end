@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Plant from "./Plant";
 import { Link, Route } from "react-router-dom";
 import AddPlant from "./AddPlant";
-import schema from "./formSchema";
+import schema from "../schema/formSchema";
 import * as yup from "yup";
 
 const dummyData = [

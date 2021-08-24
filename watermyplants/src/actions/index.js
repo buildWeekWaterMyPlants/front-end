@@ -11,7 +11,6 @@ export const START_REQUEST = "START_REQUEST";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const FAILED_REQUEST = "FAILED_REQUEST";
 export const FINISH_REQUEST = "FINISH_REQUEST";
-export const LOGOUT = "LOGOUT";
 
 export const login = (userInfo) => (dispatch) => {
   dispatch({ type: START_REQUEST });
@@ -51,6 +50,23 @@ export const updatePlant = (plantData) => (dispatch) => {
     .put("", plantData)
     .then((res) => {
       dispatch({ type: UPDATE_PLANT, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: FAILED_REQUEST, payload: err });
+    })
+    .finally(() => {
+      dispatch({ type: FINISH_REQUEST })
+    })
+};
+
+export const GET_PLANTS = "GET_PLANTS";
+
+export const getPlants = () => (dispatch) => {
+  dispatch({ type: START_REQUEST });
+  axiosWithAuth()
+    .get("")
+    .then((res) => {
+      dispatch({ type: GET_PLANTS, payload: res.data });
     })
     .catch((err) => {
       dispatch({ type: FAILED_REQUEST, payload: err });
@@ -111,6 +127,8 @@ export const updateUser = (userData) => (dispatch) => {
       dispatch({ type: FINISH_REQUEST })
     })
 };
+
+export const LOGOUT = "LOGOUT";
 
 export const logOut = () => (dispatch) => {
   axios.post("")

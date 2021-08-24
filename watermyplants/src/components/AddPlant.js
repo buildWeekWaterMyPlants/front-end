@@ -1,9 +1,26 @@
 import React from "react";
+import useForm from "../hooks/useForm";
 
 function AddPlant(props) {
 
   const {formValues, changeForm, submit, disabled, formErrors} = props;
 
+
+  const submit = () => {
+    let randomNumber = Math.random();
+    const newPlant = {
+      id: `${randomNumber}`,
+      nickname: formValues.nickname,
+      species: formValues.species,
+      h2oFrequency: formValues.h2oFrequency,
+    };
+    //API goes here
+    setPlants([...plants, newPlant]);
+    console.log(newPlant);
+    setFormValues(initalFormValues);
+  };
+
+  
   const onChange=(evt)=>{
     const {name, value} = evt.target;
     changeForm(name,value)

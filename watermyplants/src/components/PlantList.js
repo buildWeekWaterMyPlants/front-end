@@ -42,6 +42,7 @@ function PlantList(props) {
   const [formValues, setFormValues] = useState(initalFormValues);
   const [formErrors, setFormErrors] = useState(initalFormErrors);
   const [disabled, setDisabled] = useState(initalDisabled);
+  const [open, setOpen] = useState(false);
 
   const validate = (name, value) => {
     yup
@@ -71,7 +72,6 @@ function PlantList(props) {
   };
 
   const deleteFunction = (id) => {
-    console.log("It works!");
     let newArr = plants.filter((item) => {
       if (item.id !== id) {
         return item;
@@ -94,13 +94,10 @@ function PlantList(props) {
   return (
     <div className="flex w-90 justify-center flex-col text-center items-center mt-10">
       <h2 className="text-5xl font-bold m-4"> Your Garden </h2>
-      <Link
-        to="/add-plant"
-        className="border p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md"
-      >
+      <button onClick={e=>setOpen(!open)} className="border p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">
         Add A Plant
-      </Link>
-      {/* <Route path="/add-plant"> */}
+      </button>
+      {open && 
         <AddPlant
           formErrors={formErrors}
           disabled={disabled}
@@ -108,8 +105,9 @@ function PlantList(props) {
           changeForm={changeForm}
           formValues={formValues}
         />
-      {/* </Route> */}
-      <div className="w-11/12 mt-6 h-80 border-8 flex-wrap flex justify-center items-start">
+      }
+      
+      <div className="w-11/12 mt-6 h-full border-8 flex-wrap flex justify-center items-start">
         {plants.map((plant, index) => {
           return (
             <Plant

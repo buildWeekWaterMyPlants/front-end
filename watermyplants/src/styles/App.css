@@ -36,3 +36,92 @@
     transform: rotate(360deg);
   }
 }
+.hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../imgs/01.jpg");
+  height: 50vh;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.Header-bar {
+  background: #333333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Nav-icon {
+  height: 10vh;
+  width: 10%;
+  color: #478978;
+}
+
+.Nav-bar {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  color: #478978;
+}
+.hero-content {
+  padding: 15px;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 25vh;
+  color: #333333;
+  background-color: #b3c5d7;
+  box-shadow: 10px 10px 8px #478978;
+}
+h2 {
+  font-weight: bold;
+}
+
+.spacer {
+  height: 15vh;
+  width: 100%;
+  background-color: #333333;
+}
+.IconRow {
+  margin: 2.5vh;
+  display: flex;
+  justify-content: space-evenly;
+  height: 25vh;
+  width: 100%;
+}
+.body {
+  background-image: url("../imgs/02.jpg");
+}
+.Icon {
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 25%;
+  color: #478978;
+  background-color: #b3c5d7;
+}
+.logo {
+  height: 80%;
+  width: 80%;
+}
+.iconRowContent {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rowContent {
+  border-radius: 2rem;
+  padding: 15px;
+  background-color: #b3c5d7;
+  width: 100%;
+}

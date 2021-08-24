@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deletePlant } from "../actions";
+import { Link } from "react-router-dom";
 
 function Plant(props) {
 
@@ -62,7 +63,7 @@ function Plant(props) {
           <button onClick={e=>timerReset()} className="border ml-16 text-md bg-blue-200 hover:bg-blue-300 mt-4 p-2 rounded-md w-2/3">Water Plant</button>
       </div>
         <div onClick={handleDelete} className="cursor-pointer p-2"> ❌</div>
-        <div onClick={e=>editFunction(id, nickname, species, h2oFrequency)}className="cursor-pointer p-2">✏️</div>
+        <Link to={`/plantlist/update/${id}`} className="cursor-pointer p-2">✏️</Link>
     </div>
   )
 }

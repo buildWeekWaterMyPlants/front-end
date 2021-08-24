@@ -19,14 +19,15 @@ function AddPlant(props) {
   const [formValues, handleChange] = useForm(initalFormValues)
   const [disabled, formErrors, changeAndValidate] = useValidation(formValues, formSchema, handleChange);
   
-  
+  const submit = (e) => {
+    e.preventDefault()
+    addPlant(formValues)
+  }
 
   return (
-    <>
-    <div>
-      <label>
+    <section>
       ▼
-        <form className=" p-8 flex flex-col border-8">
+        <form className=" p-8 flex flex-col border-8" onSubmit={submit}>
           <label className=" text-lg font-bold flex flex-col items-center justify-center">
             What is your plant's nickname?
             <input 
@@ -52,15 +53,15 @@ function AddPlant(props) {
                 <option value="7">Once a week</option>
               </select>
               <button disabled={disabled} className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Submit</button>
-              <div className="text-red-500">{formErrors.nickname}</div>
-              <div className="text-red-500">{formErrors.species}</div>
-              <div className="text-red-500">{formErrors.h2oFrequency}</div>
+              {
+                Object.keys(formErrors).map((err, index) => 
+                  <div key={index} className="text-red-500">{formErrors[err]}</div>
+                )
+              }
             </label>
           </label>
         </form>
-      </label>
-    </div>
-    </>
+    </section>
   )
 }
 

@@ -113,7 +113,6 @@ function PlantList(props) {
             <Plant
               id={plant.id}
               editFunction={editFunction}
-              deleteFunction={deleteFunction}
               nickname={plant.nickname}
               species={plant.species}
               h2oFrequency={plant.h2oFrequency}

@@ -1,9 +1,11 @@
 import React from "react";
 import useForm from "../hooks/useForm";
+import { connect } from "react-redux";
+import { addPlant } from "../actions";
 
 function AddPlant(props) {
 
-  const {formValues, changeForm, submit, disabled, formErrors} = props;
+  const {formValues, changeForm, submit, disabled, formErrors, addPlant} = props;
 
 
   const submit = () => {
@@ -67,4 +69,4 @@ function AddPlant(props) {
   )
 }
 
-export default AddPlant;
+export default connect(null, { addPlant })(AddPlant);

@@ -1,10 +1,16 @@
-import React, { useState } from "react";
 
-const initialTime = `0 days, 0 hours, 0 minutes, 0 seconds`
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { deletePlant } from "../actions";
 
 function Plant(props) {
 
-  const {id, nickname, species, h2oFrequency, deleteFunction, editFunction} = props;
+  const {id, nickname, species, h2oFrequency, deletePlant, editFunction} = props;
+
+
+  const initialTime = `0 days, 0 hours, 0 minutes, 0 seconds`
+
+
   const [time, setTime] = useState(h2oFrequency*86400)
 
   
@@ -30,6 +36,7 @@ function Plant(props) {
     // let minutes = Math.floor(hours/60)
     // let seconds = Math.floor(minutes/60)
 
+  const handleDelete = () => deletePlant(id)
     // function secondsToDhms(seconds) {
     //   seconds = Number(seconds);
     //   var d = Math.floor(seconds / (3600*24));
@@ -55,10 +62,10 @@ function Plant(props) {
           </h6>
           <button onClick={e=>timerReset()} className="border ml-16 text-md bg-blue-200 hover:bg-blue-300 mt-4 p-2 rounded-md w-2/3">Water Plant</button>
       </div>
-        <div onClick={e=>deleteFunction(id)} className="cursor-pointer p-2"> ❌</div>
+        <div onClick={handleDelete} className="cursor-pointer p-2"> ❌</div>
         <div onClick={e=>editFunction(id, nickname, species, h2oFrequency)}className="cursor-pointer p-2">✏️</div>
     </div>
   )
 }
 
-export default Plant;
+export default connect(null, { deletePlant })(Plant);

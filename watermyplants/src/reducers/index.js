@@ -9,11 +9,12 @@ import {
   UPDATE_PLANT,
   LOGOUT,
 } from "../actions";
+import dummyData from "../mock";
 
 const initialState = {
   authenticated: localStorage.getItem("token") || false,
   makingRequest: false,
-  plants: []
+  plants: dummyData,
 };
 
 const reducer = (state = initialState, actions) => {
@@ -66,7 +67,6 @@ const reducer = (state = initialState, actions) => {
     case LOGOUT:
       localStorage.removeItem("token");
       return { ...state, authenticated: false, makingRequest: false };
-
     default:
       return state;
   }

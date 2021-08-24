@@ -15,4 +15,4 @@ const formSchema = yup.object().shape({
         .oneOf(['1', '3', '5', '7'], 'Water Frequency is required')
 })
 
-export default formSchema
+export default formSchema;

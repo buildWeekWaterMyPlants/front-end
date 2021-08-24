@@ -3,6 +3,8 @@ import Plant from "./Plant";
 import { Link, Route } from "react-router-dom";
 import AddPlant from "./AddPlant";
 import schema from "../schema/formSchema";
+import { connect } from "react-redux";
+import { getPlants } from "../actions";
 import * as yup from "yup";
 
 const dummyData = [
@@ -38,6 +40,12 @@ const initalFormErrors = {
 const initalDisabled = true;
 
 function PlantList(props) {
+  const { getPlants, plants } = props; 
+
+  useEffect(() => {
+    getPlants()
+  }, [])
+
   const [plants, setPlants] = useState(dummyData);
   const [formValues, setFormValues] = useState(initalFormValues);
   const [formErrors, setFormErrors] = useState(initalFormErrors);
@@ -127,4 +135,8 @@ function PlantList(props) {
   );
 }
 
-export default PlantList;
+const mapStateToProps = (state) => ({
+  plants: state.plants
+})
+
+export default connect(mapStateToProps, { getPlants })(PlantList);

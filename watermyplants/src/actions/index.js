@@ -135,6 +135,9 @@ export const logOut = () => (dispatch) => {
     .then(() => {
       dispatch({ type: LOGOUT });
     })
+    .catch((err) => {
+      dispatch({ type: FAILED_REQUEST, payload: err })
+    })
     .finally(() => {
       dispatch({ type: FINISH_REQUEST })
     })

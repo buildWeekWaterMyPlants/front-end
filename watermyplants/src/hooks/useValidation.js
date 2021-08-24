@@ -1,9 +1,9 @@
 import * as yup from "yup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useValidation = (formValues, schema, handleChanges) => {
-    const [formErrors, setFormErrors] = useState();
-    const [disabled, setDisabled] = useState();
+    const [formErrors, setFormErrors] = useState({});
+    const [disabled, setDisabled] = useState(true);
 
     const validate = (name, value) => {
         yup.reach(schema, name)

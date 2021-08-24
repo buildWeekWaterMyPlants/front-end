@@ -3,6 +3,7 @@ import {
   AUTHENTICATE,
   FINISH_REQUEST,
   START_REQUEST,
+  GET_PLANTS,
   ADD_PLANT,
   DELETE_PLANT,
   UPDATE_PLANT,
@@ -42,6 +43,11 @@ const reducer = (state = initialState, actions) => {
       return {
         ...state,
         plants: [...state.plants, actions.payload]
+      }
+    case GET_PLANTS:
+      return {
+        ...state,
+        plants: actions.payload
       }
     case DELETE_PLANT:
       return {

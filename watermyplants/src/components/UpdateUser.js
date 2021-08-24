@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
 import useForm from "../hooks/useForm";
+import { connect } from "react-redux";
+import { updateUser } from "../actions";
 
 const initialData = { phonenumber: "" };
 
@@ -10,6 +12,7 @@ function UpdateUser(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // axios put
+    updateUser(userPhone);
   };
   return (
     <div>
@@ -29,4 +32,4 @@ function UpdateUser(props) {
   );
 }
 
-export default UpdateUser;
+export default connect(null, { updateUser })(UpdateUser);

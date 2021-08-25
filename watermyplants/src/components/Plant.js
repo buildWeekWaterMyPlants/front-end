@@ -1,64 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { deletePlant } from "../actions";
 import { Link } from "react-router-dom";
 
+const msPerMinute = 1000 * 60;
+const msPerHour = msPerMinute * 60;
+const msPerDay = msPerHour * 24;
+
 function Plant(props) {
 
-  const {id, nickname, species, h2oFrequency, deletePlant, editFunction} = props;
+  const {id, nickname, species, h2oFrequency, deletePlant, editFunction, lastWaterTime = new Date("Aug 24, 2021 16:37:52").getTime()} = props;
 
+  const [secondsPassed, setSecondsPassed] = useState(0);
+  // Date.now() - lastWaterTime = time in ms since we last watered
+  const calculateMsLeft = () => (msPerDay * h2oFrequency) + (Date.now() - lastWaterTime);
 
-  const initialTime = `0 days, 0 hours, 0 minutes, 0 seconds`
+  const [timeLeft, setTimeLeft] = useState(calculateMsLeft());
 
+  const calculateSecondsLeft = () => Math.floor((timeLeft % msPerMinute) / 1000)
+  const calculateMinutesLeft = () => Math.floor((timeLeft % msPerHour) / msPerMinute)
+  const calculateHoursLeft = () => Math.floor((timeLeft % msPerDay) / msPerHour)
+  const calculateDaysLeft = () => Math.floor(timeLeft / msPerDay)
 
-  const [time, setTime] = useState(h2oFrequency*86400)
-
+  const [daysLeft, setDaysLeft] = useState(calculateDaysLeft());
+  const [hoursLeft, setHoursLeft] = useState(calculateHoursLeft());
+  const [minutesLeft, setMinutesLeft] = useState(calculateMinutesLeft())
+  const [secondsLeft, setSecondsLeft] = useState(calculateSecondsLeft())
   
-  const timerReset = ()=>{
-    clearTimeout(timer)
-    setTime(h2oFrequency*86400)
-  }
-  
-    
-    function countdown(){
-      
-      setTime(time - 1)
-      
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSecondsPassed(prevSeconds => prevSeconds + 1)
+    }, 1000)
+    return function() {
+      clearInterval(timer)
     }
+  }, [])
 
-   
-
-    let timer = setTimeout(countdown, 1000)
-    // let days = Math.floor(time/86400)
-    // let daysCalc = time/86400
-    // let hours = Math.floor(daysCalc/24)
+  useEffect(() => {
+    setTimeLeft(calculateMsLeft())
+    setDaysLeft(calculateDaysLeft())
+    setHoursLeft(calculateHoursLeft())
+    setMinutesLeft(calculateMinutesLeft())
+    setSecondsLeft(calculateSecondsLeft())
+  }, [secondsPassed])
+  
+  const timerReset = () => {};
     
-    // let minutes = Math.floor(hours/60)
-    // let seconds = Math.floor(minutes/60)
-
   const handleDelete = () => deletePlant(id)
-    // function secondsToDhms(seconds) {
-    //   seconds = Number(seconds);
-    //   var d = Math.floor(seconds / (3600*24));
-    //   var h = Math.floor(seconds % (3600*24) / 3600);
-    //   var m = Math.floor(seconds % 3600 / 60);
-    //   var s = Math.floor(seconds % 60);
-      
-    //   var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
-    //   var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-    //   var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-    //   var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-    //   return dDisplay + hDisplay + mDisplay + sDisplay;
-    //   }
-
+   
   return (
     <div className="border rounded-lg flex w-1/4 m-4 shadow-lg  bg-green-300">
       <div className="flex flex-col p-6">
       <h3 className="text-2xl text-left font-bold">{nickname}</h3>
       <h6 className="text-lg text-left italic">{species}</h6>
       <h6 className="text-sm text-left">Water Frequency: {h2oFrequency} days</h6>
-      <h6 className="text-sm text-left animate-pulse">  Time until water: {time}
-         {/* {days} days, {hours} hours, {minutes} minutues, {seconds} seconds.  */}
+      <h6 className="text-sm text-left animate-pulse">
+         {daysLeft} days, {hoursLeft} hours, {minutesLeft} minutues, {secondsLeft} seconds. 
           </h6>
           <button onClick={e=>timerReset()} className="border ml-16 text-md bg-blue-200 hover:bg-blue-300 mt-4 p-2 rounded-md w-2/3">Water Plant</button>
       </div>

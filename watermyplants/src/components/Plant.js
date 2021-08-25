@@ -11,29 +11,37 @@ function Plant(props) {
 
   const {id, nickname, species, h2oFrequency, deletePlant, editFunction, lastWaterTime = new Date("Jun 5, 2021 16:37:52").getTime()} = props;
 
-  // Date.now() - lastWaterTime = time in ms since we last watered
-  const [timeLeft, setTimeLeft] = useState((msPerDay * h2oFrequency) -  Date.now() - lastWaterTime);
-  const [daysLeft, setDaysLeft] = useState(Math.floor(timeLeft / msPerDay));
-  const [hoursLeft, setHoursLeft] = useState(Math.floor((timeLeft % msPerDay) / msPerHour));
-  const [minutesLeft, setMinutesLeft] = useState(Math.floor((timeLeft % msPerHour) / msPerMinute))
-  const [secondsLeft, setSecondsLeft] = useState(Math.floor((timeLeft % msPerMinute) / 1000))
   const [secondsPassed, setSecondsPassed] = useState(0);
+  // Date.now() - lastWaterTime = time in ms since we last watered
+  const calculateMsLeft = () => (msPerDay * h2oFrequency) - Date.now() - lastWaterTime - (secondsPassed * 1000);
+
+  const [timeLeft, setTimeLeft] = useState(calculateMsLeft());
+
+  const calculateSecondsLeft = () => Math.floor((timeLeft % msPerMinute) / 1000)
+  const calculateMinutesLeft = () => Math.floor((timeLeft % msPerHour) / msPerMinute)
+  const calculateHoursLeft = () => Math.floor((timeLeft % msPerDay) / msPerHour)
+  const calculateDaysLeft = () => Math.floor(timeLeft / msPerDay)
+
+  const [daysLeft, setDaysLeft] = useState(calculateDaysLeft());
+  const [hoursLeft, setHoursLeft] = useState(calculateHoursLeft());
+  const [minutesLeft, setMinutesLeft] = useState(calculateMinutesLeft())
+  const [secondsLeft, setSecondsLeft] = useState(calculateSecondsLeft())
   
   useEffect(() => {
     const timer = setInterval(() => {
       setSecondsPassed(prevSeconds => prevSeconds + 1)
     }, 1000)
-    return () => {
+    return function() {
       clearInterval(timer)
     }
   }, [])
 
   useEffect(() => {
-    setTimeLeft((msPerDay * h2oFrequency) - Date.now() - lastWaterTime - (secondsPassed * 1000))
-    setDaysLeft(Math.floor(timeLeft / msPerDay))
-    setHoursLeft(Math.floor((timeLeft % msPerDay) / msPerHour))
-    setMinutesLeft(Math.floor((timeLeft % msPerHour) / msPerMinute))
-    setSecondsLeft(Math.floor((timeLeft % msPerMinute) / 1000))
+    setTimeLeft(calculateMsLeft())
+    setDaysLeft(calculateDaysLeft())
+    setHoursLeft(calculateHoursLeft())
+    setMinutesLeft(calculateMinutesLeft())
+    setSecondsLeft(calculateSecondsLeft())
   }, [secondsPassed])
   
   const timerReset = () => {};

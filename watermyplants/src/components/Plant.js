@@ -13,26 +13,26 @@ function Plant(props) {
 
   const [time, setTime] = useState(h2oFrequency*86400)
 
-  
+
   const timerReset = ()=>{
     clearTimeout(timer)
     setTime(h2oFrequency*86400)
   }
-  
-    
+
+
     function countdown(){
-      
+
       setTime(time - 1)
-      
+
     }
 
-   
+
 
     let timer = setTimeout(countdown, 1000)
     // let days = Math.floor(time/86400)
     // let daysCalc = time/86400
     // let hours = Math.floor(daysCalc/24)
-    
+
     // let minutes = Math.floor(hours/60)
     // let seconds = Math.floor(minutes/60)
 
@@ -43,7 +43,7 @@ function Plant(props) {
     //   var h = Math.floor(seconds % (3600*24) / 3600);
     //   var m = Math.floor(seconds % 3600 / 60);
     //   var s = Math.floor(seconds % 60);
-      
+
     //   var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
     //   var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
     //   var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
@@ -63,7 +63,8 @@ function Plant(props) {
           <button onClick={e=>timerReset()} className="border ml-16 text-md bg-blue-200 hover:bg-blue-300 mt-4 p-2 rounded-md w-2/3">Water Plant</button>
       </div>
         <div onClick={handleDelete} className="cursor-pointer p-2"> ❌</div>
-        <Link to={`/plantlist/update/${id}`} className="cursor-pointer p-2">✏️</Link>
+        {/* <Link to={`/plantlist/update/${id}`} className="cursor-pointer p-2">✏️</Link> */}
+        <button className='edit-btn'>✏️</button>
     </div>
   )
 }

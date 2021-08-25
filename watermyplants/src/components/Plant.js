@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { deletePlant } from "../actions";
 import { Link } from "react-router-dom";
 
-const msPerDay = 1000 * 60 * 60 * 24;
-const msPerHour = 1000 * 60 * 60;
 const msPerMinute = 1000 * 60;
+const msPerHour = msPerMinute * 60;
+const msPerDay = msPerHour * 24;
 
 function Plant(props) {
 

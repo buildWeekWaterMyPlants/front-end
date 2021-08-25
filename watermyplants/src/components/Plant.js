@@ -9,11 +9,11 @@ const msPerDay = msPerHour * 24;
 
 function Plant(props) {
 
-  const {id, nickname, species, h2oFrequency, deletePlant, editFunction, lastWaterTime = new Date("Jun 5, 2021 16:37:52").getTime()} = props;
+  const {id, nickname, species, h2oFrequency, deletePlant, editFunction, lastWaterTime = new Date("Aug 24, 2021 16:37:52").getTime()} = props;
 
   const [secondsPassed, setSecondsPassed] = useState(0);
   // Date.now() - lastWaterTime = time in ms since we last watered
-  const calculateMsLeft = () => (msPerDay * h2oFrequency) - Date.now() - lastWaterTime - (secondsPassed * 1000);
+  const calculateMsLeft = () => (msPerDay * h2oFrequency) + (Date.now() - lastWaterTime);
 
   const [timeLeft, setTimeLeft] = useState(calculateMsLeft());
 

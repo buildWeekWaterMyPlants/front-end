@@ -19,7 +19,11 @@ function Plant(props) {
   } = props;
 
   const [secondsPassed, setSecondsPassed] = useState(0);
-  const calculateMsLeft = () => msPerDay * h2oFrequency - (Date.now() - lastWaterTime);
+
+  const msPerWatering = msPerDay * h2oFrequency;
+  const timeSinceWatered = Date.now() - lastWaterTime;
+
+  const calculateMsLeft = () => msPerWatering - timeSinceWatered;
 
   const [timeLeft, setTimeLeft] = useState(calculateMsLeft());
 

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deletePlant } from "../actions";
 import { Link } from "react-router-dom";
+import useCountdown from "../hooks/useCountdown";
 
 const msPerMinute = 1000 * 60;
 const msPerHour = msPerMinute * 60;
@@ -18,41 +19,14 @@ function Plant(props) {
     lastWaterTime = new Date("Aug 24, 2021 16:37:52").getTime(),
   } = props;
 
-  const [secondsPassed, setSecondsPassed] = useState(0);
-
+  
   const msPerWatering = msPerDay * h2oFrequency;
   const timeSinceWatered = Date.now() - lastWaterTime;
-
+  
   const calculateMsLeft = () => msPerWatering - timeSinceWatered;
-
-  const [timeLeft, setTimeLeft] = useState(calculateMsLeft());
-
-  const calculateSecondsLeft = () => Math.floor((timeLeft % msPerMinute) / 1000);
-  const calculateMinutesLeft = () => Math.floor((timeLeft % msPerHour) / msPerMinute);
-  const calculateHoursLeft = () => Math.floor((timeLeft % msPerDay) / msPerHour);
-  const calculateDaysLeft = () => Math.floor(timeLeft / msPerDay);
-
-  const [daysLeft, setDaysLeft] = useState(calculateDaysLeft());
-  const [hoursLeft, setHoursLeft] = useState(calculateHoursLeft());
-  const [minutesLeft, setMinutesLeft] = useState(calculateMinutesLeft());
-  const [secondsLeft, setSecondsLeft] = useState(calculateSecondsLeft());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSecondsPassed((prevSeconds) => prevSeconds + 1);
-    }, 1000);
-    return function () {
-      clearInterval(timer);
-    };
-  }, []);
-
-  useEffect(() => {
-    setTimeLeft(calculateMsLeft());
-    setDaysLeft(calculateDaysLeft());
-    setHoursLeft(calculateHoursLeft());
-    setMinutesLeft(calculateMinutesLeft());
-    setSecondsLeft(calculateSecondsLeft());
-  }, [secondsPassed]);
+  
+  
+  const [daysLeft, hoursLeft, minutesLeft, secondsLeft, msLeft] = useCountdown(calculateMsLeft)
 
   const timerReset = () => {};
 
@@ -66,7 +40,7 @@ function Plant(props) {
         <h6 className="text-sm text-left">
           Water Frequency: {h2oFrequency} days
         </h6>
-        {timeLeft > 0 ?  
+        {msLeft > 0 ?  
         <h6 className="text-sm text-left animate-pulse">
           {daysLeft} days, <br/>
           {hoursLeft} hours, <br/>

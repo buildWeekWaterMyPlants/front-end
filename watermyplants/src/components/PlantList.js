@@ -9,6 +9,7 @@ import { getPlants } from "../actions";
 
 function PlantList(props) {
   const { getPlants, plants } = props;
+  const [ plantToEdit, setPlantToEdit ] = useState(null);
 
   useEffect(() => {
     // getPlants()
@@ -41,11 +42,11 @@ function PlantList(props) {
         Add A Plant
       </button>
 
-      {open && <AddPlant/>}
+      {open && <AddPlant plantToEdit={plantToEdit} />}
 
       <div className="w-11/12 mt-6 h-full border-8 flex-wrap flex justify-center items-start">
-        {plants?.map(plant => 
-            <Plant {...plant} />
+        {plants?.map(plant =>
+            <Plant {...plant} setPlantToEdit={setPlantToEdit} />
         )}
       </div>
     </div>

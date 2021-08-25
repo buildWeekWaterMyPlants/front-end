@@ -15,13 +15,14 @@ const initalFormValues = {
 
 function AddPlant(props) {
 
-  const { addPlant } = props;
-  const [formValues, handleChange] = useForm(initalFormValues)
+  const { addPlant, plantToEdit } = props;
+  const [formValues, handleChange] = useForm(plantToEdit || initalFormValues)
   const [disabled, formErrors, changeAndValidate] = useValidation(formValues, formSchema, handleChange);
-  
+
+
   const submit = (e) => {
     e.preventDefault()
-    addPlant(formValues)
+    formValues.id ? updatePlant(formValues) : addPlant(formValues)
   }
 
   return (
@@ -30,21 +31,21 @@ function AddPlant(props) {
         <form className=" p-8 flex flex-col border-8" onSubmit={submit}>
           <label className=" text-lg font-bold flex flex-col items-center justify-center">
             What is your plant's nickname?
-            <input 
-              className="border-4" 
-              name="nickname" 
-              type="text" 
-              placeholder="Add Nickname" 
-              value={formValues.nickname} 
+            <input
+              className="border-4"
+              name="nickname"
+              type="text"
+              placeholder="Add Nickname"
+              value={formValues.nickname}
               onChange={changeAndValidate}  />
           </label>
           <label className=" text-lg font-bold  flex flex-col items-center justify-center">
             What species is the plant?
-            <input className="border-4" type="text" placeholder="Add Species" name="species" value={formValues.species} 
+            <input className="border-4" type="text" placeholder="Add Species" name="species" value={formValues.species}
               onChange={changeAndValidate} />
             <label className=" text-lg font-bold flex flex-col items-center justify-center">
               How often do you give it water?
-              <select className="border-4" name="h2oFrequency" value={formValues.h2oFrequency} 
+              <select className="border-4" name="h2oFrequency" value={formValues.h2oFrequency}
                 onChange={changeAndValidate}>
                 <option value=''>--Select an Option--</option>
                 <option value="1">Everyday</option>
@@ -52,9 +53,9 @@ function AddPlant(props) {
                 <option value="5">Every five days</option>
                 <option value="7">Once a week</option>
               </select>
-              <button disabled={disabled} className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Submit</button>
+              <button disabled={disabled} className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">{formValues.id ? 'Save Change' : 'Submit'}</button>
               {
-                Object.keys(formErrors).map((err, index) => 
+                Object.keys(formErrors).map((err, index) =>
                   <div key={index} className="text-red-500">{formErrors[err]}</div>
                 )
               }

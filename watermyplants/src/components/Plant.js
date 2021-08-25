@@ -3,34 +3,37 @@ import { connect } from "react-redux";
 import { deletePlant } from "../actions";
 import { Link } from "react-router-dom";
 
-const millisecondsPerDay = 86400000;
-const millisecondsPerHour = (1000 * 60 * 60);
-const millisecondsPerMinute = (1000 * 60);
+const msPerDay = 1000 * 60 * 60 * 24;
+const msPerHour = 1000 * 60 * 60;
+const msPerMinute = 1000 * 60;
 
 function Plant(props) {
 
   const {id, nickname, species, h2oFrequency, deletePlant, editFunction, lastWaterTime = new Date("Jun 5, 2021 16:37:52").getTime()} = props;
 
-  // Date.now() - lastWaterTime = time in milliseconds since we last watered
-  const [timeLeft, setTimeLeft] = useState((millisecondsPerDay * h2oFrequency) - Date.now() - lastWaterTime);
-  const [daysLeft, setDaysLeft] = useState(Math.floor(timeLeft / millisecondsPerDay));
-  const [hoursLeft, setHoursLeft] = useState(Math.floor((timeLeft % millisecondsPerDay) / millisecondsPerHour));
-  const [minutesLeft, setMinutesLeft] = useState(Math.floor((timeLeft % millisecondsPerHour) / millisecondsPerMinute))
-  const [secondsLeft, setSecondsLeft] = useState(Math.floor((timeLeft % millisecondsPerMinute) / 1000))
+  // Date.now() - lastWaterTime = time in ms since we last watered
+  const [timeLeft, setTimeLeft] = useState((msPerDay * h2oFrequency) -  Date.now() - lastWaterTime);
+  const [daysLeft, setDaysLeft] = useState(Math.floor(timeLeft / msPerDay));
+  const [hoursLeft, setHoursLeft] = useState(Math.floor((timeLeft % msPerDay) / msPerHour));
+  const [minutesLeft, setMinutesLeft] = useState(Math.floor((timeLeft % msPerHour) / msPerMinute))
+  const [secondsLeft, setSecondsLeft] = useState(Math.floor((timeLeft % msPerMinute) / 1000))
   const [secondsPassed, setSecondsPassed] = useState(0);
   
   useEffect(() => {
-    setInterval(() => {
+    const timer = setInterval(() => {
       setSecondsPassed(prevSeconds => prevSeconds + 1)
     }, 1000)
+    return () => {
+      clearInterval(timer)
+    }
   }, [])
 
   useEffect(() => {
-    setTimeLeft((millisecondsPerDay * h2oFrequency) - Date.now() - lastWaterTime - (secondsPassed * 1000))
-    setDaysLeft(Math.floor(timeLeft / millisecondsPerDay));
-    setHoursLeft(Math.floor((timeLeft % millisecondsPerDay) / millisecondsPerHour));
-    setMinutesLeft(Math.floor((timeLeft % millisecondsPerHour) / millisecondsPerMinute));
-    setSecondsLeft(Math.floor((timeLeft % millisecondsPerMinute) / 1000))
+    setTimeLeft((msPerDay * h2oFrequency) - Date.now() - lastWaterTime - (secondsPassed * 1000))
+    setDaysLeft(Math.floor(timeLeft / msPerDay))
+    setHoursLeft(Math.floor((timeLeft % msPerDay) / msPerHour))
+    setMinutesLeft(Math.floor((timeLeft % msPerHour) / msPerMinute))
+    setSecondsLeft(Math.floor((timeLeft % msPerMinute) / 1000))
   }, [secondsPassed])
   
   const timerReset = () => {};

@@ -45,7 +45,7 @@ function PlantList(props) {
 
       <div className="w-11/12 mt-6 h-full border-8 flex-wrap flex justify-center items-start">
         {plants?.map(plant => 
-            <Plant {...plant} />
+            <Plant {...plant} key={plant.id} />
         )}
       </div>
     </div>

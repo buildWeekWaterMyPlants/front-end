@@ -55,13 +55,8 @@ function Plant(props) {
           Water Plant
         </button>
       </div>
-      <div onClick={handleDelete} className="cursor-pointer p-2">
-        {" "}
-        ❌
-      </div>
-      <Link to={`/plantlist/update/${id}`} className="cursor-pointer p-2">
-        ✏️
-      </Link>
+        <div onClick={handleDelete} className="cursor-pointer p-2"> ❌</div>
+        <Link to={`/plantlist/update/${id}`} className="cursor-pointer p-2">✏️</Link>
     </div>
   );
 }

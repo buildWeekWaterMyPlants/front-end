@@ -2,6 +2,7 @@ import React from "react";
 import useForm from "../hooks/useForm";
 import { connect } from "react-redux";
 import { signUp } from "../actions";
+import { useHistory } from "react-router-dom";
 
 const initialSignUp = {
   username: "",
@@ -10,7 +11,8 @@ const initialSignUp = {
 };
 
 export function SignUp(props) {
-  const { signUp } = props
+  const { signUp } = props;
+  const { push } = useHistory();
   const [signUpData, handleChange] = useForm(initialSignUp);
 
   const handleSubmit = (e) => {
@@ -18,6 +20,7 @@ export function SignUp(props) {
     // axios post Here
     signUp(signUpData)
     //set token to localstorage
+    push("/plantlist")
     //push to my plant list
   };
   console.log(signUpData);

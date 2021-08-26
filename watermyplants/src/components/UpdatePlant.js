@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { updatePlant } from "../actions";
+import { updatePlant, getPlant } from "../actions";
 import { useParams } from 'react-router-dom';
 import useForm from "../hooks/useForm";
 import useValidation from "../hooks/useValidation";
 import formSchema from "../schema/formSchema";
 
 function UpdatePlant(props) {
-  const { updatePlant } = props;
-  const { id } = useParams;
-  const [ plantToUpdate, setPlantToUpdate ] = useState(null);
+  const { updatePlant, getPlant, plantToUpdate } = props;
+  const { id } = useParams();
 
   const [formValues, handleChange] = useForm(plantToUpdate);
   const [disabled, formErrors, changeAndValidate] = useValidation(formValues, formSchema, handleChange);
 
   useEffect(() => {
-    axios.get(`http://localhost:...../${id}`)
-      .then(setPlantToUpdate(res.data))
-      .catch(err => console.log(err))
+    getPlant(id)
   }, [id])
 
   const submit = (e) => {
@@ -66,4 +63,8 @@ function UpdatePlant(props) {
   );
 }
 
-export default connect(null, { updatePlant })(UpdatePlant);
+const mapStateToProps = (state) => ({
+  plantToUpdate: state.plantToUpdate
+})
+
+export default connect(mapStateToProps, { updatePlant, getPlant })(UpdatePlant);

@@ -7,6 +7,8 @@ import PlantList from "./components/PlantList";
 import UpdateUser from "./components/UpdateUser";
 import { connect } from "react-redux";
 import Marketing from "./components/Marketing";
+import image from "../src/imgs/succulent.jpg";
+import UpdatePlant from "./components/UpdatePlant";
 import sun from "./imgs/sun.svg";
 
 function App(props) {
@@ -54,6 +56,10 @@ function App(props) {
         <Route exact path="/">
           <Marketing />
         </Route>
+
+        {/* <Route path='/plantlist/update/:id'>
+          <UpdatePlant />
+        </Route> */}
       </Switch>
     </div>
   );

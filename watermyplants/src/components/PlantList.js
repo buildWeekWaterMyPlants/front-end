@@ -10,28 +10,12 @@ import { getPlants } from "../actions";
 function PlantList(props) {
   const { getPlants, plants } = props;
 
+
   useEffect(() => {
     // getPlants()
   }, [])
 
   const [open, setOpen] = useState(false);
-
-
-  // const deleteFunction = (id) => {
-  //   let newArr = plants.filter((item) => {
-  //     if (item.id !== id) {
-  //       return item;
-  //     }
-  //   });
-  //   setPlants(newArr);
-  // };
-
-  // const editFunction = (id, nick, spec, h2o) => {
-  //   console.log("nicknaem", nick);
-  //   // setFormValues({ nickname: nick, species: spec, h2oFrequency: h2o, id: id });
-
-  //   deleteFunction(id);
-  // };
 
 
   return (
@@ -41,11 +25,11 @@ function PlantList(props) {
         Add A Plant
       </button>
 
-      {open && <AddPlant/>}
+      {open && <AddPlant plantToEdit={plantToEdit} />}
 
       <div className="w-11/12 mt-6 h-full border-8 flex-wrap flex justify-center items-start">
-        {plants?.map(plant => 
-            <Plant {...plant} key={plant.id} />
+        {plants?.map(plant =>
+            <Plant {...plant} setPlantToEdit={setPlantToEdit} key={plant.id} />
         )}
       </div>
     </div>

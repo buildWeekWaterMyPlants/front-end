@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deletePlant } from "../actions";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from 'react-router-dom';
 import useCountdown from "../hooks/useCountdown";
 
 const msPerMinute = 1000 * 60;
@@ -16,9 +16,11 @@ export function Plant(props) {
     h2oFrequency,
     deletePlant,
     editFunction,
+    setPlantToEdit,
     lastWaterTime = new Date("Aug 24, 2021 16:37:52").getTime(),
   } = props;
 
+  const { url } = useRouteMatch();
   
   const msPerWatering = msPerDay * h2oFrequency;
   const timeSinceWatered = Date.now() - lastWaterTime;
@@ -55,8 +57,8 @@ export function Plant(props) {
           Water Plant
         </button>
       </div>
-        <div data-testid="delete" onClick={handleDelete} className="cursor-pointer p-2"> ❌</div>
-        <Link to={`/plantlist/update/${id}`} className="cursor-pointer p-2">✏️</Link>
+        <div onClick={handleDelete} className="cursor-pointer p-2"> ❌</div>
+        <Link to={`${url}/update/${id}`} className="cursor-pointer p-2">✏️</Link>
     </div>
   );
 }

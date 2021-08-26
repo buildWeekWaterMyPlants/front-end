@@ -1,17 +1,20 @@
-import axios from "axios";
+
 import React from "react";
 import useForm from "../hooks/useForm";
 import { connect } from "react-redux";
 import { updateUser } from "../actions";
+import updateUserSchema from "../schema/updateUserSchema";
+import useValidation from "../hooks/useValidation";
+import ErrorMessage from "./ErrorMessage";
 
 const initialData = { phonenumber: "" };
 
 function UpdateUser(props) {
   const [userPhone, handleChange] = useForm(initialData);
+  const [disabled, formErrors, changeAndValidate] = useValidation(userPhone, updateUserSchema, handleChange)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // axios put
     updateUser(userPhone);
   };
   return (
@@ -20,13 +23,14 @@ function UpdateUser(props) {
         <label>
           New Phone Number:
           <input
-            onChange={handleChange}
+            onChange={changeAndValidate}
             type="tel"
             name="phonenumber"
             value={userPhone.phonenumber}
           ></input>
         </label>
-        <button>Update</button>
+        <ErrorMessage formErrors={formErrors}/>
+        <button disabled={disabled} type="submit">Update</button>
       </form>
     </div>
   );

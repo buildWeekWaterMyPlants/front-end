@@ -15,9 +15,9 @@ export const FINISH_REQUEST = "FINISH_REQUEST";
 export const login = (userInfo) => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axios
-    .post("", userInfo) //insert url here
+    .post("https://watermyplantsbuildweek.herokuapp.com/api/auth/login", userInfo) 
     .then((res) => {
-      dispatch({ type: AUTHENTICATE, payload: res.data }); // may need to adjust this later
+      dispatch({ type: AUTHENTICATE, payload: res.data });
     })
     .catch((err) => {
       dispatch({ type: FAILED_REQUEST, payload: err });
@@ -30,9 +30,9 @@ export const login = (userInfo) => (dispatch) => {
 export const signUp = (userInfo) => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axios
-    .post("", userInfo) //insert url here
+    .post("https://watermyplantsbuildweek.herokuapp.com/api/auth/register", userInfo) 
     .then((res) => {
-      dispatch({ type: AUTHENTICATE, payload: res.data }); // may need to adjust this later
+      dispatch({ type: AUTHENTICATE, payload: res.data }); 
     })
     .catch((err) => {
       dispatch({ type: FAILED_REQUEST, payload: err });
@@ -47,7 +47,7 @@ export const UPDATE_PLANT = "UPDATE_PLANT";
 export const updatePlant = (plantData) => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axiosWithAuth()
-    .put("", plantData)
+    .put(`/api/plants/${plantData.id}`, plantData)
     .then((res) => {
       dispatch({ type: UPDATE_PLANT, payload: res.data });
     })
@@ -64,7 +64,7 @@ export const GET_PLANTS = "GET_PLANTS";
 export const getPlants = () => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axiosWithAuth()
-    .get("")
+    .get("/api/plants")
     .then((res) => {
       dispatch({ type: GET_PLANTS, payload: res.data });
     })
@@ -81,7 +81,7 @@ export const DELETE_PLANT = "DELETE_PLANT";
 export const deletePlant = (plantData) => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axiosWithAuth()
-    .delete("", plantData)
+    .delete(`/api/plants/${plantData.id}`, plantData)
     .then((res) => {
       dispatch({ type: DELETE_PLANT, payload: res.data });
     })
@@ -99,7 +99,7 @@ export const ADD_PLANT = "ADD_PLANT";
 export const addPlant = (plantData) => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axiosWithAuth()
-    .post("", plantData)
+    .post("/api/plants", plantData)
     .then((res) => {
       dispatch({ type: ADD_PLANT, payload: res.data });
     })
@@ -116,7 +116,7 @@ export const UPDATE_USER = "UPDATE_USER";
 export const updateUser = (userData) => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axiosWithAuth()
-    .put("", userData)
+    .put("/api/user", userData)
     .then((res) => {
       dispatch({ type: UPDATE_USER, payload: res.data });
     })

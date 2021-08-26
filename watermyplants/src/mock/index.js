@@ -15,3 +15,12 @@ const dummyData = [
     },
 ];
 export default dummyData;
+
+export const mockPlant = {
+  id: 33,
+  nickname: "nick-name",
+  species: "species",
+  h2oFrequency: 1,
+  lastWaterTime: new Date("Aug 24, 2021 16:37:52").getTime(),
+
+}

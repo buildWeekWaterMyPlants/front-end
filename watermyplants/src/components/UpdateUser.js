@@ -22,7 +22,7 @@ function UpdateUser(props) {
           <input
             onChange={handleChange}
             type="tel"
-            name="phoneNumber"
+            name="phonenumber"
             value={userPhone.phonenumber}
           ></input>
         </label>

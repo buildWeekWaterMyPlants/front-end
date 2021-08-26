@@ -9,7 +9,7 @@ const initialSignUp = {
   password: "",
 };
 
-function SignUp(props) {
+export function SignUp(props) {
   const { signUp } = props
   const [signUpData, handleChange] = useForm(initialSignUp);
 

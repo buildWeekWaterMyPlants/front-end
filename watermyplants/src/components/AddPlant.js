@@ -1,9 +1,10 @@
 import React from "react";
 import useForm from "../hooks/useForm";
 import useValidation from "../hooks/useValidation";
-import formSchema from "../schema/formSchema";
+import plantSchema from "../schema/plantSchema";
 import { connect } from "react-redux";
 import { addPlant } from "../actions";
+import ErrorMessage from "./ErrorMessage";
 
 
 const initalFormValues = {
@@ -17,7 +18,7 @@ export function AddPlant(props) {
 
   const { addPlant } = props;
   const [formValues, handleChange] = useForm(initalFormValues)
-  const [disabled, formErrors, changeAndValidate] = useValidation(formValues, formSchema, handleChange);
+  const [disabled, formErrors, changeAndValidate] = useValidation(formValues, plantSchema, handleChange);
 
 
   const submit = (e) => {
@@ -54,11 +55,7 @@ export function AddPlant(props) {
                 <option value="7">Once a week</option>
               </select>
               <button disabled={disabled} className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Submit</button>
-              {
-                Object.keys(formErrors).map((err, index) =>
-                  <div key={index} className="text-red-500">{formErrors[err]}</div>
-                )
-              }
+              <ErrorMessage formErrors={formErrors}/>
             </label>
           </label>
         </form>

@@ -5,7 +5,8 @@ import { signUp } from "../actions";
 import { useHistory } from "react-router-dom";
 
 import useValidation from "../hooks/useValidation";
-import formSchema from "../schema/formSchema";
+import signUpSchema from "../schema/signUpSchema";
+import ErrorMessage from "./ErrorMessage";
 
 const initialSignUp = {
   username: "",
@@ -17,17 +18,15 @@ export function SignUp(props) {
   const { signUp } = props;
   const { push } = useHistory();
   const [signUpData, handleChange] = useForm(initialSignUp);
-  const [disabled, formErrors, changeAndValidate] = useValidation(signUpData, formSchema, handleChange);
+  const [disabled, formErrors, changeAndValidate] = useValidation(signUpData, signUpSchema, handleChange);
   
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // axios post Here
     signUp(signUpData)
     //set token to localstorage
     push("/plantlist")
-    //push to my plant list
   };
   console.log(signUpData);
   return (
@@ -61,11 +60,7 @@ export function SignUp(props) {
           />
         </label>
         <button disabled={disabled} type="submit">Sign Up</button>
-        {
-              Object.keys(formErrors).map((err, index) =>
-                <div key={index} className="text-red-500">{formErrors[err]}</div>
-              )
-            }
+        <ErrorMessage formErrors={formErrors}/>
       </form>
     </div>
   );

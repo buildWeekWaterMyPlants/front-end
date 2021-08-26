@@ -7,7 +7,7 @@ const axiosWithAuth = () => {
         headers: {
             Authorization: token
         },
-        baseURL: "https://watermyplantsbuildweek.herokuapp.com/"
+        baseURL: "https://watermyplantsbuildweek.herokuapp.com"
     })
 }
 

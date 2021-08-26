@@ -2,6 +2,8 @@ import React from "react";
 import useForm from "../hooks/useForm";
 import { connect } from "react-redux";
 import { signUp } from "../actions";
+import { useHistory } from "react-router-dom";
+
 import useValidation from "../hooks/useValidation";
 import formSchema from "../schema/formSchema";
 
@@ -12,7 +14,8 @@ const initialSignUp = {
 };
 
 export function SignUp(props) {
-  const { signUp } = props
+  const { signUp } = props;
+  const { push } = useHistory();
   const [signUpData, handleChange] = useForm(initialSignUp);
   const [disabled, formErrors, changeAndValidate] = useValidation(signUpData, formSchema, handleChange);
   
@@ -23,6 +26,7 @@ export function SignUp(props) {
     // axios post Here
     signUp(signUpData)
     //set token to localstorage
+    push("/plantlist")
     //push to my plant list
   };
   console.log(signUpData);

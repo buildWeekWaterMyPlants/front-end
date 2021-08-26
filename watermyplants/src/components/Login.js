@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { login } from "../actions";
 import { useHistory } from "react-router-dom";
 import useValidation from "../hooks/useValidation";
-import formSchema from "../schema/formSchema";
+import loginSchema from "../schema/loginSchema";
+import ErrorMessage from "./ErrorMessage";
 
 const initialLogin = {
   username: "",
@@ -15,7 +16,7 @@ export function Login(props) {
   const { login } = props;
   const [loginData, handleChange] = useForm(initialLogin);
   const { push } = useHistory();
-  const [disabled, formErrors, changeAndValidate] = useValidation(loginData, formSchema, handleChange);
+  const [disabled, formErrors, changeAndValidate] = useValidation(loginData, loginSchema, handleChange);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,11 +49,7 @@ export function Login(props) {
           ></input>
         </label>
         <button disabled={disabled} type="submit">Login</button>
-        {
-              Object.keys(formErrors).map((err, index) =>
-                <div key={index} className="text-red-500">{formErrors[err]}</div>
-              )
-            }
+        <ErrorMessage formErrors={formErrors}/>
       </form>
     </div>
   );

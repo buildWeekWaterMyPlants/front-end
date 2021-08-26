@@ -15,14 +15,14 @@ const initalFormValues = {
 
 function AddPlant(props) {
 
-  const { addPlant, plantToEdit } = props;
-  const [formValues, handleChange] = useForm(plantToEdit || initalFormValues)
+  const { addPlant } = props;
+  const [formValues, handleChange] = useForm(initalFormValues)
   const [disabled, formErrors, changeAndValidate] = useValidation(formValues, formSchema, handleChange);
 
 
   const submit = (e) => {
     e.preventDefault()
-    formValues.id ? updatePlant(formValues) : addPlant(formValues)
+    addPlant(formValues)
   }
 
   return (
@@ -53,7 +53,7 @@ function AddPlant(props) {
                 <option value="5">Every five days</option>
                 <option value="7">Once a week</option>
               </select>
-              <button disabled={disabled} className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">{formValues.id ? 'Save Change' : 'Submit'}</button>
+              <button disabled={disabled} className="border m-4 p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">Submit</button>
               {
                 Object.keys(formErrors).map((err, index) =>
                   <div key={index} className="text-red-500">{formErrors[err]}</div>

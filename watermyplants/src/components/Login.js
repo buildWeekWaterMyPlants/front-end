@@ -20,11 +20,8 @@ export function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //   axios post
     login(loginData)
     push("/plantlist")
-    // set token to localstorage
-    //push to plantlist
   };
 
   return (

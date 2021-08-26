@@ -9,22 +9,21 @@ import { getPlants } from "../actions";
 function PlantList(props) {
   const { getPlants, plants } = props;
 
-
   useEffect(() => {
     getPlants()
   }, [])
 
-  const [open, setOpen] = useState(false);
-
+  const [revealForm, setRevealForm] = useState(false);
+  const toggleForm = () => setRevealForm(!revealForm)
 
   return (
     <div className="flex w-90 justify-center flex-col text-center items-center mt-10">
       <h2 className="text-5xl font-bold m-4"> Your Garden </h2>
-      <button onClick={e=>setOpen(!open)} className="border p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">
+      <button onClick={toggleForm} className="border p-2 text-md bg-yellow-200 hover:bg-yellow-300 rounded-md">
         Add A Plant
       </button>
 
-      {open && <AddPlant/>}
+      {revealForm && <AddPlant/>}
 
       <div className="w-11/12 mt-6 h-full border-8 flex-wrap flex justify-center items-start">
         {plants?.map(plant =>

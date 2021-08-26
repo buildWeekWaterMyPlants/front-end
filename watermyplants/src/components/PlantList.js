@@ -25,11 +25,11 @@ function PlantList(props) {
         Add A Plant
       </button>
 
-      {open && <AddPlant plantToEdit={plantToEdit} />}
+      {open && <AddPlant  />}
 
       <div className="w-11/12 mt-6 h-full border-8 flex-wrap flex justify-center items-start">
         {plants?.map(plant =>
-            <Plant {...plant} setPlantToEdit={setPlantToEdit} key={plant.id} />
+            <Plant {...plant}  key={plant.id} />
         )}
       </div>
     </div>

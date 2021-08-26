@@ -4,6 +4,7 @@ import {
   FINISH_REQUEST,
   START_REQUEST,
   GET_PLANTS,
+  GET_PLANT,
   ADD_PLANT,
   DELETE_PLANT,
   UPDATE_PLANT,
@@ -15,6 +16,7 @@ const initialState = {
   authenticated: localStorage.getItem("token") || false,
   makingRequest: false,
   plants: dummyData,
+  plantToUpdate: {}
 };
 
 const reducer = (state = initialState, actions) => {
@@ -35,7 +37,7 @@ const reducer = (state = initialState, actions) => {
         makingRequest: false,
       };
     case AUTHENTICATE:
-      localStorage.setItem("token", actions.payload);
+      localStorage.setItem("token", actions.payload.created_at);
       return {
         ...state,
         authenticated: true
@@ -50,11 +52,16 @@ const reducer = (state = initialState, actions) => {
         ...state,
         plants: actions.payload
       }
+    case GET_PLANT:
+      return {
+        ...state,
+        plantToUpdate: actions.payload
+      }
     case DELETE_PLANT:
       return {
         ...state,
         plants: state.plants.filter(plant => 
-          plant.id !== actions.payload.id
+          plant.id !== actions.payload
         )
       }
     case UPDATE_PLANT:

@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../imgs/02.jpg";
 
 function Marketing(props) {
   return (

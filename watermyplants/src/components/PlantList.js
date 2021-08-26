@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Plant from "./Plant";
-import { Link, Route } from "react-router-dom";
 import AddPlant from "./AddPlant";
 import { connect } from "react-redux";
 import { getPlants } from "../actions";
@@ -12,7 +11,7 @@ function PlantList(props) {
 
 
   useEffect(() => {
-    // getPlants()
+    getPlants()
   }, [])
 
   const [open, setOpen] = useState(false);
@@ -25,11 +24,11 @@ function PlantList(props) {
         Add A Plant
       </button>
 
-      {open && <AddPlant plantToEdit={plantToEdit} />}
+      {open && <AddPlant/>}
 
       <div className="w-11/12 mt-6 h-full border-8 flex-wrap flex justify-center items-start">
         {plants?.map(plant =>
-            <Plant {...plant} setPlantToEdit={setPlantToEdit} key={plant.id} />
+            <Plant {...plant} key={plant.id}/>
         )}
       </div>
     </div>

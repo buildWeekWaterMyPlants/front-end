@@ -32,6 +32,7 @@ export const signUp = (userInfo) => (dispatch) => {
   axios
     .post("https://watermyplantsbuildweek.herokuapp.com/api/auth/register", userInfo) 
     .then((res) => {
+      console.log(res)
       dispatch({ type: AUTHENTICATE, payload: res.data }); 
     })
     .catch((err) => {
@@ -76,14 +77,14 @@ export const getPlants = () => (dispatch) => {
     })
 };
 
-export const DELETE_PLANT = "DELETE_PLANT";
+export const GET_PLANT = "GET_PLANT";
 
-export const deletePlant = (plantData) => (dispatch) => {
+export const getPlant = (id) => (dispatch) => {
   dispatch({ type: START_REQUEST });
   axiosWithAuth()
-    .delete(`/api/plants/${plantData.id}`, plantData)
+    .get(`/api/plants/${id}`)
     .then((res) => {
-      dispatch({ type: DELETE_PLANT, payload: res.data });
+      dispatch({ type: GET_PLANT, payload: res.data });
     })
     .catch((err) => {
       dispatch({ type: FAILED_REQUEST, payload: err });
@@ -93,6 +94,22 @@ export const deletePlant = (plantData) => (dispatch) => {
     })
 };
 
+export const DELETE_PLANT = "DELETE_PLANT";
+
+export const deletePlant = (id) => (dispatch) => {
+  dispatch({ type: START_REQUEST });
+  axiosWithAuth()
+    .delete(`/api/plants/${id}`)
+    .then((res) => {
+      dispatch({ type: DELETE_PLANT, payload: id });
+    })
+    .catch((err) => {
+      dispatch({ type: FAILED_REQUEST, payload: err });
+    })
+    .finally(() => {
+      dispatch({ type: FINISH_REQUEST })
+    })
+};
 
 export const ADD_PLANT = "ADD_PLANT";
 

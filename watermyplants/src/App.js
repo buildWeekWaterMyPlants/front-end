@@ -8,7 +8,6 @@ import UpdateUser from "./components/UpdateUser";
 import { connect } from "react-redux";
 import Marketing from "./components/Marketing";
 import UpdatePlant from "./components/UpdatePlant";
-import sun from "./imgs/sun.svg";
 
 function App(props) {
   const { authenticated } = props;

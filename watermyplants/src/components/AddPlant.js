@@ -13,7 +13,7 @@ const initalFormValues = {
   h2oFrequency: "",
 };
 
-function AddPlant(props) {
+export function AddPlant(props) {
 
   const { addPlant } = props;
   const [formValues, handleChange] = useForm(initalFormValues)
@@ -66,3 +66,4 @@ function AddPlant(props) {
 }
 
 export default connect(null, { addPlant })(AddPlant);
+

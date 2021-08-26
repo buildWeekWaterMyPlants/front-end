@@ -8,7 +8,7 @@ const initialLogin = {
   password: "",
 };
 
-function Login(props) {
+export function Login(props) {
   const { login } = props;
   const [loginData, handleChange] = useForm(initialLogin);
 

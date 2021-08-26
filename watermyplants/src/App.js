@@ -21,6 +21,7 @@ function App(props) {
             <>
               <Link>Logout</Link>
               <Link to="/updateuser">Update User</Link>
+              <Link to="/plantlist">Plant List</Link>
             </>
           ) : (
             <>

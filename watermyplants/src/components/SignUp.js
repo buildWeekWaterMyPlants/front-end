@@ -2,6 +2,8 @@ import React from "react";
 import useForm from "../hooks/useForm";
 import { connect } from "react-redux";
 import { signUp } from "../actions";
+import useValidation from "../hooks/useValidation";
+import formSchema from "../schema/formSchema";
 
 const initialSignUp = {
   username: "",
@@ -12,6 +14,9 @@ const initialSignUp = {
 export function SignUp(props) {
   const { signUp } = props
   const [signUpData, handleChange] = useForm(initialSignUp);
+  const [disabled, formErrors, changeAndValidate] = useValidation(signUpData, formSchema, handleChange);
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +32,7 @@ export function SignUp(props) {
         <label>
           Username:
           <input 
-            onChange={handleChange} 
+       onChange={changeAndValidate}
             value={signUpData.username}
             type="text" 
             name="username"
@@ -36,7 +41,7 @@ export function SignUp(props) {
         <label>
           Phone Number:
           <input 
-            onChange={handleChange} 
+         onChange={changeAndValidate}
             value={signUpData.phoneNumber}
             type="tel" 
             name="phoneNumber"
@@ -45,13 +50,18 @@ export function SignUp(props) {
         <label>
           Password:
           <input
-            onChange={handleChange}
+          onChange={changeAndValidate}
             value={signUpData.password}
             type="password"
             name="password"
           />
         </label>
-        <button type="submit">Sign Up</button>
+        <button disabled={disabled} type="submit">Sign Up</button>
+        {
+              Object.keys(formErrors).map((err, index) =>
+                <div key={index} className="text-red-500">{formErrors[err]}</div>
+              )
+            }
       </form>
     </div>
   );

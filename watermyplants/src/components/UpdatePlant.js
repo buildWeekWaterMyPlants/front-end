@@ -14,11 +14,11 @@ function UpdatePlant(props) {
   const [formValues, handleChange] = useForm(plantToUpdate);
   const [disabled, formErrors, changeAndValidate] = useValidation(formValues, formSchema, handleChange);
 
-  useEffect(() => {
-    axios.get(`http://localhost:...../${id}`)
-      .then(setPlantToUpdate(res.data))
-      .catch(err => console.log(err))
-  }, [id])
+  // useEffect(() => {
+  //   axios.get(`http://localhost:...../${id}`)
+  //     .then(setPlantToUpdate(res.data))
+  //     .catch(err => console.log(err))
+  // }, [id])
 
   const submit = (e) => {
     e.preventDefault()

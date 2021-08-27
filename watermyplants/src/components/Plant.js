@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { deletePlant } from "../actions";
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -15,8 +15,6 @@ export function Plant(props) {
     species,
     h2oFrequency,
     deletePlant,
-    editFunction,
-    setPlantToEdit,
     lastWaterTime = new Date("Aug 24, 2021 16:37:52").getTime(),
   } = props;
 
@@ -26,7 +24,6 @@ export function Plant(props) {
   const timeSinceWatered = Date.now() - lastWaterTime;
   
   const calculateMsLeft = () => msPerWatering - timeSinceWatered;
-  
   
   const [daysLeft, hoursLeft, minutesLeft, secondsLeft, msLeft] = useCountdown(calculateMsLeft)
 
@@ -51,7 +48,7 @@ export function Plant(props) {
           </h6>
           : <h2>Water it!!!</h2>}
         <button
-          onClick={(e) => timerReset()}
+          onClick={timerReset}
           className="border ml-16 text-md bg-blue-200 hover:bg-blue-300 mt-4 p-2 rounded-md w-2/3"
         >
           Water Plant

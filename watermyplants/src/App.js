@@ -1,13 +1,12 @@
 import "./styles/App.css";
 import { Route, Switch, Link } from "react-router-dom";
-import AddPlant from "./components/AddPlant";
+// import UpdatePlant from "./components/UpdatePlant";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import PlantList from "./components/PlantList";
+import Marketing from "./components/Marketing";
 import UpdateUser from "./components/UpdateUser";
 import { connect } from "react-redux";
-import Marketing from "./components/Marketing";
-import UpdatePlant from "./components/UpdatePlant";
 
 function App(props) {
   const { authenticated } = props;

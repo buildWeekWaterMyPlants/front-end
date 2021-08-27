@@ -21,7 +21,7 @@ const useValidation = (formValues, schema, handleChanges) => {
 
     useEffect(() => {
         schema.isValid(formValues).then((valid) => setDisabled(!valid));
-    }, [formValues]);
+    }, [formValues, schema]);
     
     return [disabled, formErrors, changeAndValidate];
 };

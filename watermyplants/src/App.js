@@ -17,6 +17,7 @@ function App(props) {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
+          className="Nav-icon"
           viewBox="0 0 24 24"
           stroke="currentColor"
         >

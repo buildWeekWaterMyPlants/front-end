@@ -26,24 +26,26 @@ export function Login(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className=" p-8 flex flex-col border-8" onSubmit={handleSubmit}>
+        <label className=" text-lg font-bold flex flex-col items-center justify-center">
           Username:
           <input
-             onChange={changeAndValidate}
+            className="border-4"
+            onChange={changeAndValidate}
             type="text"
             name="username"
             value={loginData.username}
-          ></input>
+          />
         </label>
-        <label>
+        <label className=" text-lg font-bold  flex flex-col items-center justify-center">
           Password:
           <input
-        onChange={changeAndValidate}
+            className="border-4"
+            onChange={changeAndValidate}
             type="password"
             name="password"
             value={loginData.password}
-          ></input>
+          />
         </label>
         <button disabled={disabled} type="submit">Login</button>
         <ErrorMessage formErrors={formErrors}/>
